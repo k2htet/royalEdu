@@ -54,6 +54,7 @@ const Register = () => {
         data: {
           username: userData.username,
         },
+        emailRedirectTo: "http://localhost:3000/student/dashboard",
       },
     });
 

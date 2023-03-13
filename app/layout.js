@@ -34,6 +34,23 @@ export default async function RootLayout({ children }) {
     data: { session },
   } = await supabase.auth.getSession();
 
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (session && user && user.email_confirmed_at !== null) {
+    const { error } = await supabase
+      .from("students")
+      .select()
+      .match({ id: user.id })
+      .single();
+
+    if (error) {
+      await supabase.from("students").insert({ id: user.id });
+    }
+  }
+
   return (
     <html lang="en">
       <head />
