@@ -88,22 +88,23 @@ const CheckoutForm = ({ courseId, userId, price }) => {
             {errors?.image?.message}
           </h1>
         )}
-        <div className="flex justify-between items-center">
-          {success ? (
-            <div>
-              <h1 className="font-poppins text-green-600">
-                Checkout successful,please call 09962560377
-              </h1>
-              <hr className="my-2" />
-              <Link
-                href="/student/dashboard"
-                className="btn btn-md btn-primary w-full text-h6 text-white"
-              >
-                Go To Dashboard
-              </Link>
-            </div>
-          ) : (
-            <>
+
+        {success ? (
+          <div>
+            <h1 className="font-poppins text-green-600">
+              Checkout successful,please call 09962560377
+            </h1>
+            <hr className="my-2" />
+            <Link
+              href="/student/dashboard"
+              className="btn btn-md btn-primary w-full text-h6 text-white"
+            >
+              Go To Dashboard
+            </Link>
+          </div>
+        ) : (
+          <>
+            <div className="flex justify-between items-center">
               <h1 className="font-myanmar text-primary">
                 ငွေလွှဲ <span className="font-poppins">Screenshot</span>
               </h1>
@@ -115,15 +116,15 @@ const CheckoutForm = ({ courseId, userId, price }) => {
                 required
               />
               <hr />
-              <button
-                type="submit"
-                className="btn btn-md btn-primary w-full text-h6 text-white"
-              >
-                Check out
-              </button>
-            </>
-          )}
-        </div>
+            </div>
+            <button
+              type="submit"
+              className="btn btn-md btn-primary w-full text-h6 text-white"
+            >
+              Check out
+            </button>
+          </>
+        )}
       </form>
     </>
   );
