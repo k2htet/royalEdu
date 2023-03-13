@@ -13,6 +13,14 @@ export async function middleware(req) {
   } = await supabase.auth.getSession();
 
   if (!session) {
+    if (pathname.startsWith("/login")) {
+      return res;
+    }
+
+    if (pathname.startsWith("/register")) {
+      return res;
+    }
+
     if (!session && pathname.startsWith("/checkout")) {
       return NextResponse.redirect(new URL("/register", req.url));
     }
@@ -20,11 +28,11 @@ export async function middleware(req) {
   }
 
   if (session) {
-    if (session && pathname.startsWith("/login")) {
+    if (pathname.startsWith("/login")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
-    if (session && pathname.startsWith("/register")) {
+    if (pathname.startsWith("/register")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
@@ -33,5 +41,10 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/student/:path*", "/checkout/:path*"],
+  matcher: [
+    "/student/:path*",
+    "/checkout/:path*",
+    "/register/:path*",
+    "/login/:path*",
+  ],
 };
