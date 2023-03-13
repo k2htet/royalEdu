@@ -25,7 +25,7 @@ export default function Home() {
               </h1>
               <Button
                 title="Join Our Course"
-                href="/"
+                href="/courses"
                 colorClass="bg-primary"
               />
             </div>
