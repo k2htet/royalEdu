@@ -20,6 +20,14 @@ export async function middleware(req) {
   }
 
   if (session) {
+    if (session && pathname.startsWith("/login")) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    if (session && pathname.startsWith("/register")) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
     return res;
   }
 }

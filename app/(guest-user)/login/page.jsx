@@ -19,6 +19,7 @@ const Login = () => {
   const { supabase } = useSupabase();
   const router = useRouter();
   const [loader, setLoader] = useState(false);
+  const [loginError, setLoginError] = useState(null);
 
   const {
     register,
@@ -27,13 +28,15 @@ const Login = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (userData) => {
+    setLoader((prev) => !prev);
     const { data, error } = await supabase.auth.signInWithPassword({
       email: userData.email,
       password: userData.password,
     });
 
     if (error) {
-      throw new Error(error.message);
+      setLoader((prev) => !prev);
+      setLoginError(error.message);
     } else {
       return router.push("/student/dashboard");
     }
@@ -58,10 +61,11 @@ const Login = () => {
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className="text-center text-black-100">
-                <h1 className="text-h2">Sign In</h1>
-                <h3 className="text-h4">Welcome back</h3>
+                <h1 className="text-h3 md:text-h2">Sign In</h1>
+                <h3 className="text-h5 md:text-h4">Welcome back</h3>
               </div>
 
+              {loginError && <h1 className="text-red-600">{loginError}</h1>}
               <div className="w-full lg:w-[80%] text-black-100 my-3">
                 <label htmlFor="email">
                   Email{" "}
