@@ -11,7 +11,7 @@ const Navbar = ({ user }) => {
 
   const signOut = async () => {
     setLoader((prev) => !prev);
-    await supabase.auth.signOut();
+    return await supabase.auth.signOut();
   };
   return (
     <nav className="border-black-100/25 border-b-2 items-center py-3">
