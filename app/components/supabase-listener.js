@@ -12,6 +12,11 @@ export default function SupabaseListener({ serverAccessToken }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" && session.user.email_verified) {
+        // Redirect the user to the desired URL
+        window.location.href = "http://localhost:3000/student/dashboard";
+      }
+
       if (session?.access_token !== serverAccessToken) {
         router.refresh();
       }

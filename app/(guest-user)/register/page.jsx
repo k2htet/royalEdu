@@ -28,6 +28,8 @@ const Register = () => {
   const { supabase } = useSupabase();
   const [loader, setLoader] = useState(false);
   const [currentUser, setCurrentUser] = useState(false);
+  const [registerError, setRegisterError] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -59,8 +61,19 @@ const Register = () => {
     });
 
     if (user) {
-      setLoader((prev) => !prev);
-      setCurrentUser(true);
+      const { error } = await supabase
+        .from("students")
+        .select()
+        .match({ email: user.email })
+        .single();
+
+      if (!error) {
+        setLoader((prev) => !prev);
+        setRegisterError((prev) => !prev);
+      } else {
+        setLoader((prev) => !prev);
+        setCurrentUser(true);
+      }
     }
 
     if (error) {
@@ -90,6 +103,13 @@ const Register = () => {
                 <h1 className="text-h2">Sign Up</h1>
                 <h3 className="text-h4">Welcome back</h3>
               </div>
+              {registerError && (
+                <div className="text-center text-black-100">
+                  <h1 className="text-h6 text-red-600 py-3">
+                    Already Register
+                  </h1>
+                </div>
+              )}
               {currentUser ? (
                 <div className="text-center text-black-100">
                   <h1 className="text-h4 text-green-600 py-3">
