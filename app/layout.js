@@ -40,18 +40,28 @@ export default async function RootLayout({ children }) {
   } = await supabase.auth.getUser();
 
   if (session && user && user.email_confirmed_at !== null) {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("students")
-      .select()
-      .match({ id: user.id })
+      .select("id")
+      .eq("id", user.id)
       .single();
 
     if (error) {
+<<<<<<< HEAD
       await supabase.from("students").insert({
         id: user.id,
         name: user.user_metadata.username,
         email: user.email,
       });
+=======
+      await supabase
+        .from("students")
+        .insert({
+          id: user.id,
+          name: user.user_metadata.username,
+          email: user.email,
+        });
+>>>>>>> student-dashboard
     }
   }
 
