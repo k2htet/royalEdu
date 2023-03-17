@@ -4,9 +4,15 @@ import EnrollCourseCard from "../../components/EnrollCourseCard";
 
 const Dashboard = async () => {
   const supabase = createClient();
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const { data: enrollment, error: enrollmentError } = await supabase
+    .from("enrollment")
+    .select("student_id,course_id")
+    .eq("student_id", user.id);
 
   return (
     <div className="flex-1 bg-background flex items-center justify-center">
