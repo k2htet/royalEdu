@@ -47,21 +47,11 @@ export default async function RootLayout({ children }) {
       .single();
 
     if (error) {
-<<<<<<< HEAD
       await supabase.from("students").insert({
         id: user.id,
         name: user.user_metadata.username,
         email: user.email,
       });
-=======
-      await supabase
-        .from("students")
-        .insert({
-          id: user.id,
-          name: user.user_metadata.username,
-          email: user.email,
-        });
->>>>>>> student-dashboard
     }
   }
 
