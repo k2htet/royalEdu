@@ -1,6 +1,7 @@
 import { Footer } from "@/app/components";
 import Navbar from "../components/Navbar";
 import { createClient } from "@/app/utils/supabase-server";
+
 const AuthLayout = async ({ children }) => {
   const supabase = createClient();
   const { data } = await supabase.auth.getUser();

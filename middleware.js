@@ -21,9 +21,14 @@ export async function middleware(req) {
       return res;
     }
 
-    if (!session && pathname.startsWith("/checkout")) {
+    if (pathname.startsWith("/checkout")) {
       return NextResponse.redirect(new URL("/register", req.url));
     }
+
+    if (pathname.startsWith("/student/enroll")) {
+      return NextResponse.redirect(new URL("/register", req.url));
+    }
+
     return NextResponse.redirect(new URL("/", req.url));
   }
 
