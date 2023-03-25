@@ -1,3 +1,4 @@
+import "server-only";
 import { createClient } from "@/app/utils/supabase-server";
 import DashboardCard from "../../components/DashboardCard";
 import EnrollCourseCard from "../../components/EnrollCourseCard";

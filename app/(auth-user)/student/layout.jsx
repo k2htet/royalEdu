@@ -1,3 +1,4 @@
+import "server-only";
 import { Footer } from "@/app/components";
 import Navbar from "../components/Navbar";
 import { createClient } from "@/app/utils/supabase-server";

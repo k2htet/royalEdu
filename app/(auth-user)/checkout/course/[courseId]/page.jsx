@@ -16,10 +16,10 @@ const CheckoutCourse = async ({ params: { courseId } }) => {
 
   return (
     <div className="flex-1 bg-background flex items-center justify-center">
-      <div className="container px-4 mx-auto grid grid-cols-1 lg:grid-cols-3 py-4">
+      <div className="container px-4 mx-auto grid grid-cols-1 items-center lg:grid-cols-3 py-4">
         <div className="col-span-2">
           <h1 className="text-h3 font-bold text-black-100 ">{data?.title}</h1>
-          <p>{data.desc}</p>
+          <h5 className="text-black-100 text-h5">{data.des}</h5>
         </div>
         <div>
           <div className="bg-white text-black-100 rounded-md text-h5 space-y-3 p-4">
