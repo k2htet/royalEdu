@@ -3,13 +3,19 @@ import { useSupabase } from "@/app/components/supabase-provider";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const PrevAndNext = ({ lesson }) => {
+const PrevAndNext = ({ lesson, lessonsByCat }) => {
   const [lessonDay, setLessonDay] = useState(lesson.lesson);
   const { supabase } = useSupabase();
-
+  const initialLesson = lessonsByCat[0].lesson;
+  const lastLesson = lessonsByCat.length - 1;
   const router = useRouter();
 
-  const handleNextOrPrev = async (next) => {
+  const handleNextOrPrev = async (nextOrPrev) => {
+    if (nextOrPrev === "next") {
+      setLessonDay((prev) => prev + 1);
+    } else {
+      setLessonDay((prev) => prev - 1);
+    }
     const { data: nextLesson, error } = await supabase
       .from("lessons")
       .select()
@@ -44,13 +50,17 @@ const PrevAndNext = ({ lesson }) => {
     <>
       <button
         onClick={() => handleNextOrPrev("prev")}
-        className={`btn btn-secondary btn-sm text-white `}
+        className={`btn btn-secondary btn-sm text-white ${
+          initialLesson == lesson.lesson && "invisible"
+        }`}
       >
         Prev
       </button>
       <button
         onClick={() => handleNextOrPrev("next")}
-        className={`btn btn-secondary btn-sm text-white `}
+        className={`btn btn-secondary btn-sm text-white ${
+          lastLesson == lesson.lesson && "invisible"
+        }`}
       >
         Next
       </button>

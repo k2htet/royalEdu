@@ -38,7 +38,7 @@ const Lesson = async ({ params: { lessonId } }) => {
               allowFullScreen
             ></iframe>
             <div className="flex justify-between items-center">
-              <PrevAndNext lesson={lesson} />
+              <PrevAndNext lesson={lesson} lessonsByCat={lessonsByCat} />
             </div>
           </>
         )}
