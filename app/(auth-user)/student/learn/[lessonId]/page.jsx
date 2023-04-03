@@ -1,4 +1,3 @@
-import "server-only";
 import { createClient } from "@/app/utils/supabase-server";
 import PrevAndNext from "./component/PrevAndNext";
 
@@ -10,12 +9,6 @@ const Lesson = async ({ params: { lessonId } }) => {
     .select()
     .eq("id", lessonId)
     .single();
-
-  const { data: lessonsByCat } = await supabase
-    .from("lessons")
-    .select()
-    .eq("course_id", lesson.course_id)
-    .order("lesson", { ascending: true });
 
   const { data: enrollOrNot } = await supabase
     .from("enrollment")
@@ -37,8 +30,8 @@ const Lesson = async ({ params: { lessonId } }) => {
               className="w-[60%] h-[350px] mx-auto"
               allowFullScreen
             ></iframe>
-            <div className="flex justify-between items-center">
-              <PrevAndNext lesson={lesson} lessonsByCat={lessonsByCat} />
+            <div className="flex justify-center items-center gap-5">
+              <PrevAndNext lesson={lesson} />
             </div>
           </>
         )}

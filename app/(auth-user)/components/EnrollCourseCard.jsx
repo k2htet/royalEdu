@@ -4,8 +4,8 @@ import React from "react";
 
 const EnrollCourseCard = ({ title, classes = 80, url }) => {
   return (
-    <div className="bg-secondary rounded-md p-4 flex justify-between items-center my-3">
-      <div className="w-16 h-16 bg-white"></div>
+    <div className="bg-secondary rounded-md p-2 py-4 flex flex-col justify-between items-center my-3 gap-3 md:flex-row md:p-4">
+      <div className="w-full md:w-[20%] h-14 bg-white"></div>
 
       <div className="text-white text-h6">
         <h1 className="pt-2 font-bold">{title}</h1>
@@ -16,7 +16,7 @@ const EnrollCourseCard = ({ title, classes = 80, url }) => {
       <div>
         <Link
           href={`${url}`}
-          className="bg-white text-primary text-h6 btn-sm py-2 rounded-md"
+          className="bg-white text-primary text-base md:text-h6 btn-xs py-1 md:btn-sm md:py-2 rounded-md"
         >
           View
         </Link>

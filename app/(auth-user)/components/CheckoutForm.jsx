@@ -49,7 +49,6 @@ const CheckoutForm = ({ courseId, userId, price }) => {
     if (!storageError) {
       // if storage !error make orders
       const { error } = await supabase.from("orders").insert({
-        student_id: userId,
         course_id: courseId,
         price,
       });

@@ -2,6 +2,8 @@ import "server-only";
 import { Footer } from "@/app/components";
 import Navbar from "../components/Navbar";
 import { createClient } from "@/app/utils/supabase-server";
+import { Suspense } from "react";
+import PageLoading from "./loading";
 
 const AuthLayout = async ({ children }) => {
   const supabase = createClient();
@@ -9,7 +11,8 @@ const AuthLayout = async ({ children }) => {
   return (
     <section className="min-h-screen flex flex-col">
       <Navbar user={data.user} />
-      {children}
+      <Suspense fallback={<PageLoading />}>{children}</Suspense>
+
       <Footer />
     </section>
   );

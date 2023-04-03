@@ -1,12 +1,26 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
-import { createClient } from "../utils/supabase-browser";
+import { createContext, useContext, useEffect, useState } from "react";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 
-const Context = createContext();
+const Context = createContext(undefined);
 
 export default function SupabaseProvider({ children, session }) {
-  const [supabase] = useState(() => createClient());
+  const [supabase] = useState(() => createBrowserSupabaseClient());
+  const router = useRouter();
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(() => {
+      router.refresh();
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router, supabase]);
 
   return (
     <Context.Provider value={{ supabase, session }}>
@@ -15,4 +29,12 @@ export default function SupabaseProvider({ children, session }) {
   );
 }
 
-export const useSupabase = () => useContext(Context);
+export const useSupabase = () => {
+  const context = useContext(Context);
+
+  if (context === undefined) {
+    throw new Error("useSupabase must be used inside SupabaseProvider");
+  }
+
+  return context;
+};
